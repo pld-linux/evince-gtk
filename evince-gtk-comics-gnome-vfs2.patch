@@ -1,0 +1,26 @@
+diff -urN evince-0.9.0/backend/comics/Makefile.am evince-0.9.0.new/backend/comics/Makefile.am
+--- evince-0.9.0/backend/comics/Makefile.am	2007-05-14 20:03:42.000000000 +0000
++++ evince-0.9.0.new/backend/comics/Makefile.am	2007-05-31 15:16:06.591415488 +0000
+@@ -1,6 +1,7 @@
+ INCLUDES =                      \
+ 	-I$(top_srcdir)		\
+ 	-I$(top_srcdir)/libdocument \
++	$(BACKEND_CFLAGS) \
+ 	$(LIB_CFLAGS)
+ 
+ noinst_LTLIBRARIES = libcomicsdocument.la
+diff -urN evince-0.9.0/backend/comics/Makefile.am~ evince-0.9.0.new/backend/comics/Makefile.am~
+--- evince-0.9.0/backend/comics/Makefile.am~	1970-01-01 00:00:00.000000000 +0000
++++ evince-0.9.0.new/backend/comics/Makefile.am~	2007-05-31 15:15:43.786115888 +0000
+@@ -0,0 +1,11 @@
++INCLUDES =                      \
++	-I$(top_srcdir)		\
++	-I$(top_srcdir)/libdocument \
++	$(LIB_CFLAGS)
++
++noinst_LTLIBRARIES = libcomicsdocument.la
++
++libcomicsdocument_la_SOURCES = \
++	comics-document.c      \
++	comics-document.h
++
