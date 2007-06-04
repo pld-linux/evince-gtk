@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	dbus		# enable DBUS support
+%bcond_without	dbus		# disable DBUS support
 %bcond_without	apidocs		# disable gtk-doc
 #
 Summary:	Document viewer for multiple document formats -- the no libgnome version
