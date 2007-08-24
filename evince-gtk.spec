@@ -1,4 +1,6 @@
 #
+# - are schemas (thus GConf) needed?
+#
 # Conditional build:
 %bcond_without	dbus		# disable DBUS support
 %bcond_without	apidocs		# disable gtk-doc
@@ -7,15 +9,14 @@ Summary:	Document viewer for multiple document formats -- the no libgnome versio
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
 %define		_realname	evince
 Name:		evince-gtk
-Version:	0.9.0
+Version:	0.9.3
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.9/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	620294cf13a7b98e966bfa64a9eec08f
+# Source0-md5:	64259f5b7084f5c98b463eb42b000114
 Patch0:		%{_realname}-desktop.patch
 Patch1:		%{_realname}-gs8.patch
-Patch2:		%{name}-comics-gnome-vfs2.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -30,7 +31,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libxslt-progs >= 1.1.17
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.5.4
+BuildRequires:	poppler-glib-devel >= 0.5.9
 BuildRequires:	python-libxml2
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
@@ -40,7 +41,7 @@ Requires(post,postun):	scrollkeeper
 Requires:	cairo >= 1.2.4
 Requires:	djvulibre >= 3.5.17
 Requires:	gtk+2 >= 2:2.10.6
-Requires:	poppler-glib >= 0.5.4
+Requires:	poppler-glib >= 0.5.9
 Conflicts:	evince
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -80,26 +81,29 @@ Ta wersja nie korzysta z bibliotek GNOME, a jedynie z GTK+.
 %setup -q -n %{_realname}-%{version}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
-%{__intltoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
+#%%{__intltoolize}
+#%%{__aclocal}
+#%%{__autoconf}
+#%%{__autoheader}
+#%%{__automake}
 %configure \
-	%{?with_apidocs:--enable-gtk-doc} \
+	%{!?with_apidocs:--disable-gtk-doc} \
+	%{!?with_apidocs:--disable-scrollkeeper} \
 	--disable-nautilus \
 	--disable-static \
 	--disable-schemas-install \
 	--enable-comics \
-	%{?with_dbus:--enable-dbus} \
+	%{!?with_dbus:--disable-dbus} \
 	--enable-djvu \
 	--enable-dvi \
 	--enable-impress \
-	--enable-nautilus \
+	--enable-pdf \
 	--enable-pixbuf \
+	--enable-ps \
+	--enable-t1lib \
+	--enable-thumbnailer \
 	--enable-tiff \
 	--with-print=gtk \
 	--with-html-dir=%{_gtkdocdir} \
