@@ -9,12 +9,12 @@ Summary:	Document viewer for multiple document formats -- the no libgnome versio
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
 %define		_realname	evince
 Name:		evince-gtk
-Version:	2.19.4
+Version:	2.19.92
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.19/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	9e95005f53560ddbfeb20f0779044db5
+# Source0-md5:	274db35fee7c46b7d081e1ae86f495c2
 Patch0:		%{_realname}-desktop.patch
 Patch1:		%{_realname}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -31,7 +31,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libxslt-progs >= 1.1.17
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.5.9
+BuildRequires:	poppler-glib-devel >= 0.6
 BuildRequires:	python-libxml2
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
@@ -41,7 +41,7 @@ Requires(post,postun):	scrollkeeper
 Requires:	cairo >= 1.2.4
 Requires:	djvulibre >= 3.5.17
 Requires:	gtk+2 >= 2:2.10.6
-Requires:	poppler-glib >= 0.5.9
+Requires:	poppler-glib >= 0.6
 Conflicts:	evince
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
