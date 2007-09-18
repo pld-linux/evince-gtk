@@ -9,12 +9,12 @@ Summary:	Document viewer for multiple document formats -- the no libgnome versio
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
 %define		_realname	evince
 Name:		evince-gtk
-Version:	2.19.92
+Version:	2.20.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.19/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	274db35fee7c46b7d081e1ae86f495c2
+Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.20/%{_realname}-%{version}.tar.bz2
+# Source0-md5:	f9414b4dbfdff9a8f7f2f146a351e05a
 Patch0:		%{_realname}-desktop.patch
 Patch1:		%{_realname}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
