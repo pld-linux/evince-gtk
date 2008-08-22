@@ -9,20 +9,20 @@ Summary:	Document viewer for multiple document formats -- the no libgnome versio
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
 %define		_realname	evince
 Name:		evince-gtk
-Version:	2.20.0
+Version:	2.23.6
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.20/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	f9414b4dbfdff9a8f7f2f146a351e05a
+Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.23/%{_realname}-%{version}.tar.bz2
+# Source0-md5:	04763835f04c3c8f52bfcef2041948a9
 Patch0:		%{_realname}-desktop.patch
-Patch1:		%{_realname}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.71}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	ghostscript
+%{?with_apidocs:BuildRequires:	gnome-doc-utils >= 0.3.2}
 BuildRequires:	gtk+2-devel >= 2:2.10.6
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	kpathsea-devel
@@ -80,7 +80,6 @@ Ta wersja nie korzysta z bibliotek GNOME, a jedynie z GTK+.
 %prep
 %setup -q -n %{_realname}-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 #%%{__intltoolize}
@@ -139,6 +138,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/*.so.*.*.*
+%attr(755,root,root) %{_libdir}/*.so.*
+%dir %{_libdir}/%{_realname}
+%dir %{_libdir}/%{_realname}/backends
+%attr(755,root,root) %{_libdir}/%{_realname}/backends/*.so
+%{_libdir}/%{_realname}/backends/*.evince-backend
 %{_mandir}/man1/*
 %{_datadir}/%{_realname}
 %{_desktopdir}/*.desktop
