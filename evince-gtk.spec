@@ -9,13 +9,12 @@ Summary:	Document viewer for multiple document formats -- the no libgnome versio
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
 %define		_realname	evince
 Name:		evince-gtk
-Version:	2.23.6
+Version:	2.29.5
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.23/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	04763835f04c3c8f52bfcef2041948a9
-Patch0:		%{_realname}-desktop.patch
+Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.29/%{_realname}-%{version}.tar.bz2
+# Source0-md5:	6b847d060fe3cbe96a156f82a28ee4d9
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -44,6 +43,8 @@ Requires:	gtk+2 >= 2:2.10.6
 Requires:	poppler-glib >= 0.6
 Conflicts:	evince
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define         backendsdir     %{_libdir}/evince/2/backends
 
 %description
 Evince is a document viewer for multiple document formats like pdf,
@@ -77,16 +78,28 @@ Dokumentacja API aplikacji Evince.
 
 Ta wersja nie korzysta z bibliotek GNOME, a jedynie z GTK+.
 
+%package devel
+Summary:        Header files for Evince GTK+
+Summary(pl.UTF-8):      Pliki nagłówkowe Evince GTK+
+Group:          X11/Development/Libraries
+Requires:       %{name} = %{version}-%{release}
+Requires:       gtk+2-devel >= 2:2.16.0
+
+%description devel
+Header files for Evince GTK+.
+
+%description devel -l pl.UTF-8
+Pliki nagłówkowe Evince GTK+.
+
 %prep
 %setup -q -n %{_realname}-%{version}
-%patch0 -p1
 
 %build
-#%%{__intltoolize}
-#%%{__aclocal}
-#%%{__autoconf}
-#%%{__autoheader}
-#%%{__automake}
+%{__intltoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	%{!?with_apidocs:--disable-gtk-doc} \
 	%{!?with_apidocs:--disable-scrollkeeper} \
@@ -104,9 +117,7 @@ Ta wersja nie korzysta z bibliotek GNOME, a jedynie z GTK+.
 	--enable-t1lib \
 	--enable-thumbnailer \
 	--enable-tiff \
-	--with-print=gtk \
-	--with-html-dir=%{_gtkdocdir} \
-	--without-libgnome
+	--with-html-dir=%{_gtkdocdir} 
 
 %{__make}
 
@@ -117,12 +128,15 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	HTML_DIR=%{_gtkdocdir}
 
+%{__rm} $RPM_BUILD_ROOT%{backendsdir}/*.la
+
 %find_lang %{_realname}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
+/sbin/ldconfig
 %update_desktop_database_post
 %scrollkeeper_update_post
 %update_icon_cache hicolor
@@ -130,6 +144,7 @@ rm -rf $RPM_BUILD_ROOT
 %preun
 
 %postun
+/sbin/ldconfig
 %update_desktop_database_postun
 %scrollkeeper_update_postun
 %update_icon_cache hicolor
@@ -137,13 +152,34 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{_realname}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
-%attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/*.so.*.*.*
-%attr(755,root,root) %{_libdir}/*.so.*
+%attr(755,root,root) %{_bindir}/evince
+%attr(755,root,root) %{_bindir}/evince-previewer
+%attr(755,root,root) %{_bindir}/evince-thumbnailer
+%attr(755,root,root) %{_libdir}/libevdocument.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.2
+%attr(755,root,root) %{_libdir}/libevview.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libevview.so.2
+%attr(755,root,root) %{_libdir}/evinced
+%attr(755,root,root) %{_libdir}/evince-convert-metadata
 %dir %{_libdir}/%{_realname}
-%dir %{_libdir}/%{_realname}/backends
-%attr(755,root,root) %{_libdir}/%{_realname}/backends/*.so
-%{_libdir}/%{_realname}/backends/*.evince-backend
+%dir %{_libdir}/%{_realname}/2
+%dir %{backendsdir}
+%{backendsdir}/comicsdocument.evince-backend
+%{backendsdir}/djvudocument.evince-backend
+%{backendsdir}/dvidocument.evince-backend
+%{backendsdir}/impressdocument.evince-backend
+%{backendsdir}/pdfdocument.evince-backend
+%{backendsdir}/pixbufdocument.evince-backend
+%{backendsdir}/psdocument.evince-backend
+%{backendsdir}/tiffdocument.evince-backend
+%attr(755,root,root) %{backendsdir}/libcomicsdocument.so
+%attr(755,root,root) %{backendsdir}/libdjvudocument.so 
+%attr(755,root,root) %{backendsdir}/libdvidocument.so 
+%attr(755,root,root) %{backendsdir}/libimpressdocument.so
+%attr(755,root,root) %{backendsdir}/libpdfdocument.so
+%attr(755,root,root) %{backendsdir}/libpixbufdocument.so
+%attr(755,root,root) %{backendsdir}/libpsdocument.so
+%attr(755,root,root) %{backendsdir}/libtiffdocument.so
 %{_mandir}/man1/*
 %{_datadir}/%{_realname}
 %{_desktopdir}/*.desktop
@@ -155,3 +191,19 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_gtkdocdir}/*
 %endif
+
+%files devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libevdocument.so
+%attr(755,root,root) %{_libdir}/libevview.so
+%{_libdir}/libevdocument.la
+%{_libdir}/libevview.la
+%dir %{_includedir}/%{_realname}
+%dir %{_includedir}/%{_realname}/2.29
+%dir %{_includedir}/%{_realname}/2.29/libdocument
+%dir %{_includedir}/%{_realname}/2.29/libview
+%{_includedir}/%{_realname}/2.29/*.h
+%{_includedir}/%{_realname}/2.29/libdocument/*.h
+%{_includedir}/%{_realname}/2.29/libview/*.h
+%{_pkgconfigdir}/evince-document-*.pc
+%{_pkgconfigdir}/evince-view-*.pc
