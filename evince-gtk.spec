@@ -5,9 +5,9 @@
 %bcond_without	dbus		# disable DBUS support
 %bcond_without	apidocs		# disable gtk-doc
 #
+%define		_realname	evince
 Summary:	Document viewer for multiple document formats -- the no libgnome version
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
-%define		_realname	evince
 Name:		evince-gtk
 Version:	2.28.2
 Release:	1
@@ -16,24 +16,35 @@ Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.28/%{_realname}-%{version}.tar.bz2
 # Source0-md5:	f8b9a1ee6fe8cd0a1b7a51ad4db96e59
 URL:		http://www.gnome.org/projects/evince/
+BuildRequires:	GConf2-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.71}
 BuildRequires:	djvulibre-devel >= 3.5.17
+BuildRequires:	docbook-dtd412-xml
+BuildRequires:	gettext-devel
 BuildRequires:	ghostscript
+BuildRequires:	gnome-common
 %{?with_apidocs:BuildRequires:	gnome-doc-utils >= 0.3.2}
+BuildRequires:	gnome-icon-theme
+BuildRequires:	gnome-keyring-devel
 BuildRequires:	gtk+2-devel >= 2:2.10.6
+BuildRequires:	gtk-doc-automake
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libglade2-devel >= 1:2.6.0
+BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
+BuildRequires:	libtool
+BuildRequires:	libxml2-progs
 BuildRequires:	libxslt-progs >= 1.1.17
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.6
 BuildRequires:	python-libxml2
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
+BuildRequires:	xorg-lib-libSM-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk+2 >= 2:2.10.6
 Requires(post,postun):	scrollkeeper
@@ -117,7 +128,7 @@ Ta wersja nie korzysta z bibliotek GNOME, a jedynie z GTK+.
 	--enable-t1lib \
 	--enable-thumbnailer \
 	--enable-tiff \
-	--with-html-dir=%{_gtkdocdir} 
+	--with-html-dir=%{_gtkdocdir}
 
 %{__make}
 
