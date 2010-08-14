@@ -9,12 +9,12 @@
 Summary:	Document viewer for multiple document formats -- the no libgnome version
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
 Name:		evince-gtk
-Version:	2.28.2
-Release:	3
-License:	GPL v2
+Version:	2.30.3
+Release:	1
+License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.28/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	f8b9a1ee6fe8cd0a1b7a51ad4db96e59
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.30/%{_realname}-%{version}.tar.bz2
+# Source0-md5:	516748897113cd4e9638c49245c555c2
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel
 BuildRequires:	autoconf
@@ -27,12 +27,13 @@ BuildRequires:	ghostscript
 BuildRequires:	gnome-common
 %{?with_apidocs:BuildRequires:	gnome-doc-utils >= 0.3.2}
 BuildRequires:	gnome-icon-theme
-BuildRequires:	gnome-keyring-devel
 BuildRequires:	gtk+2-devel >= 2:2.10.6
 BuildRequires:	gtk-doc-automake
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	kpathsea-devel
+BuildRequires:	lcms-devel
 BuildRequires:	libglade2-devel >= 1:2.6.0
+BuildRequires:	libgnome-keyring-devel
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
@@ -55,7 +56,7 @@ Requires:	poppler-glib >= 0.6
 Conflicts:	evince
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		backendsdir	%{_libdir}/evince/1/backends
+%define		backendsdir	%{_libdir}/evince/2/backends
 
 %description
 Evince is a document viewer for multiple document formats like pdf,
@@ -108,7 +109,7 @@ Ta wersja nie korzysta z bibliotek GNOME, a jedynie z GTK+.
 %build
 %{__intltoolize}
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
@@ -168,11 +169,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
 %attr(755,root,root) %{_libdir}/libevdocument.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.1
+%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.2
 %attr(755,root,root) %{_libdir}/libevview.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevview.so.1
+%attr(755,root,root) %ghost %{_libdir}/libevview.so.2
 %dir %{_libdir}/evince
-%dir %{_libdir}/evince/1
+%dir %{_libdir}/evince/2
 %dir %{backendsdir}
 %attr(755,root,root) %{backendsdir}/libcomicsdocument.so
 %{backendsdir}/comicsdocument.evince-backend
