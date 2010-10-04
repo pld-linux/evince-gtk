@@ -9,16 +9,17 @@
 Summary:	Document viewer for multiple document formats -- the no libgnome version
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
 Name:		evince-gtk
-Version:	2.30.3
-Release:	2
+Version:	2.32.0
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.30/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	516748897113cd4e9638c49245c555c2
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.32/%{_realname}-%{version}.tar.bz2
+# Source0-md5:	ebc3ce6df8dcbf29cb9492f8dd031319
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	cairo-devel >= 1.10.0
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.71}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	docbook-dtd412-xml
@@ -27,7 +28,7 @@ BuildRequires:	ghostscript
 BuildRequires:	gnome-common
 %{?with_apidocs:BuildRequires:	gnome-doc-utils >= 0.3.2}
 BuildRequires:	gnome-icon-theme
-BuildRequires:	gtk+2-devel >= 2:2.10.6
+BuildRequires:	gtk+2-devel >= 2:2.22.0
 BuildRequires:	gtk-doc-automake
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	kpathsea-devel
@@ -41,7 +42,7 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-progs
 BuildRequires:	libxslt-progs >= 1.1.17
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.6
+BuildRequires:	poppler-glib-devel >= 0.14.0
 BuildRequires:	python-libxml2
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
@@ -51,12 +52,12 @@ Requires(post,postun):	gtk+2 >= 2:2.10.6
 Requires(post,postun):	scrollkeeper
 Requires:	cairo >= 1.2.4
 Requires:	djvulibre >= 3.5.17
-Requires:	gtk+2 >= 2:2.10.6
+Requires:	gtk+2 >= 2:2.22.0
 Requires:	poppler-glib >= 0.6
 Conflicts:	evince
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		backendsdir	%{_libdir}/evince/2/backends
+%define		backendsdir	%{_libdir}/evince/3/backends
 
 %description
 Evince is a document viewer for multiple document formats like pdf,
@@ -79,7 +80,7 @@ Summary:	Header files for Evince GTK+
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince GTK+
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	gtk+2-devel >= 2:2.16.0
+Requires:	gtk+2-devel >= 2:2.22.0
 
 %description devel
 Header files for Evince GTK+.
@@ -172,11 +173,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
 %attr(755,root,root) %{_libdir}/libevdocument.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.2
+%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.3
 %attr(755,root,root) %{_libdir}/libevview.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevview.so.2
+%attr(755,root,root) %ghost %{_libdir}/libevview.so.3
 %dir %{_libdir}/evince
-%dir %{_libdir}/evince/2
+%dir %{_libdir}/evince/3
 %dir %{backendsdir}
 %attr(755,root,root) %{backendsdir}/libcomicsdocument.so
 %{backendsdir}/comicsdocument.evince-backend
