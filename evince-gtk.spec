@@ -4,16 +4,16 @@
 # Conditional build:
 %bcond_without	dbus		# disable DBUS support
 %bcond_without	apidocs		# disable gtk-doc
-#
-%define		_realname	evince
+
+%define		realname	evince
 Summary:	Document viewer for multiple document formats -- the no libgnome version
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
 Name:		evince-gtk
 Version:	2.32.0
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.32/%{_realname}-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.32/%{realname}-%{version}.tar.bz2
 # Source0-md5:	ebc3ce6df8dcbf29cb9492f8dd031319
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel
@@ -50,6 +50,7 @@ BuildRequires:	xorg-lib-libSM-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk+2 >= 2:2.10.6
 Requires(post,postun):	scrollkeeper
+Requires(post,postun):	/sbin/ldconfig
 Requires:	cairo >= 1.2.4
 Requires:	djvulibre >= 3.5.17
 Requires:	gtk+2 >= 2:2.22.0
@@ -105,7 +106,7 @@ Dokumentacja API aplikacji Evince.
 Ta wersja nie korzysta z bibliotek GNOME, a jedynie z GTK+.
 
 %prep
-%setup -q -n %{_realname}-%{version}
+%setup -q -n %{realname}-%{version}
 
 %build
 %{__intltoolize}
@@ -147,7 +148,7 @@ rm -rf $RPM_BUILD_ROOT
 # unsupported
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/en@shaw
 
-%find_lang %{_realname}
+%find_lang %{realname}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -158,15 +159,13 @@ rm -rf $RPM_BUILD_ROOT
 %scrollkeeper_update_post
 %update_icon_cache hicolor
 
-%preun
-
 %postun
 /sbin/ldconfig
 %update_desktop_database_postun
 %scrollkeeper_update_postun
 %update_icon_cache hicolor
 
-%files -f %{_realname}.lang
+%files -f %{realname}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/evince
@@ -196,7 +195,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{backendsdir}/libtiffdocument.so
 %{backendsdir}/tiffdocument.evince-backend
 %{_mandir}/man1/*
-%{_datadir}/%{_realname}
+%{_datadir}/%{realname}
 %{_desktopdir}/*.desktop
 %{_iconsdir}/*/*/*/*
 %{_omf_dest_dir}/evince
