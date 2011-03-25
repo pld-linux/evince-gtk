@@ -146,9 +146,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{backendsdir}/*.la
 
-# unsupported
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/en@shaw
-
 %find_lang %{realname}
 
 %clean
