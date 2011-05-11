@@ -9,12 +9,12 @@
 Summary:	Document viewer for multiple document formats -- the no libgnome version
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
 Name:		evince-gtk
-Version:	2.32.0
-Release:	4
+Version:	3.0.0
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.32/%{realname}-%{version}.tar.bz2
-# Source0-md5:	ebc3ce6df8dcbf29cb9492f8dd031319
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.0/%{realname}-%{version}.tar.bz2
+# Source0-md5:	9d8fdb4a2be479001e06fdc6fe81e7e7
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel
 BuildRequires:	autoconf
@@ -144,6 +144,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	HTML_DIR=%{_gtkdocdir}
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 %{__rm} $RPM_BUILD_ROOT%{backendsdir}/*.la
 
 %find_lang %{realname}
@@ -169,10 +170,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/evince
 %attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
-%attr(755,root,root) %{_libdir}/libevdocument.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.3
-%attr(755,root,root) %{_libdir}/libevview.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevview.so.3
+%attr(755,root,root) %{_libdir}/libevdocument3.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libevdocument3.so.3
+%attr(755,root,root) %{_libdir}/libevview3.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libevview3.so.3
 %dir %{_libdir}/evince
 %dir %{_libdir}/evince/3
 %dir %{backendsdir}
@@ -182,12 +183,8 @@ rm -rf $RPM_BUILD_ROOT
 %{backendsdir}/djvudocument.evince-backend
 %attr(755,root,root) %{backendsdir}/libdvidocument.so*
 %{backendsdir}/dvidocument.evince-backend
-%attr(755,root,root) %{backendsdir}/libimpressdocument.so
-%{backendsdir}/impressdocument.evince-backend
 %attr(755,root,root) %{backendsdir}/libpdfdocument.so
 %{backendsdir}/pdfdocument.evince-backend
-%attr(755,root,root) %{backendsdir}/libpixbufdocument.so
-%{backendsdir}/pixbufdocument.evince-backend
 %attr(755,root,root) %{backendsdir}/libpsdocument.so
 %{backendsdir}/psdocument.evince-backend
 %attr(755,root,root) %{backendsdir}/libtiffdocument.so
@@ -196,14 +193,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{realname}
 %{_desktopdir}/*.desktop
 %{_iconsdir}/*/*/*/*
-%{_omf_dest_dir}/evince
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libevdocument.so
-%attr(755,root,root) %{_libdir}/libevview.so
-%{_libdir}/libevdocument.la
-%{_libdir}/libevview.la
+%attr(755,root,root) %{_libdir}/libevdocument3.so
+%attr(755,root,root) %{_libdir}/libevview3.so
 %{_includedir}/evince
 %{_pkgconfigdir}/evince-document-*.pc
 %{_pkgconfigdir}/evince-view-*.pc
