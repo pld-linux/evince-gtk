@@ -9,26 +9,27 @@
 Summary:	Document viewer for multiple document formats -- the no libgnome version
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach -- wersja nie wykorzystująca libgnome
 Name:		evince-gtk
-Version:	3.0.0
+Version:	3.0.2
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.0/%{realname}-%{version}.tar.bz2
-# Source0-md5:	9d8fdb4a2be479001e06fdc6fe81e7e7
+# Source0-md5:	4eff790d9ba7a0d9e8eda5b4bb91c92b
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	autoconf >= 2.57
+BuildRequires:	automake >= 1.10
 BuildRequires:	cairo-devel >= 1.10.0
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.71}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 BuildRequires:	ghostscript
+BuildRequires:	glib2-devel >= 2.26.0
 BuildRequires:	gnome-common
 %{?with_apidocs:BuildRequires:	gnome-doc-utils >= 0.3.2}
 BuildRequires:	gnome-icon-theme
-BuildRequires:	gtk+2-devel >= 2:2.22.0
+BuildRequires:	gtk+3-devel >= 3.0.2
 BuildRequires:	gtk-doc-automake
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	kpathsea-devel
@@ -54,7 +55,7 @@ Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires:	cairo >= 1.2.4
 Requires:	djvulibre >= 3.5.17
-Requires:	gtk+2 >= 2:2.22.0
+Requires:	gtk+3 >= 3.0.2
 Requires:	poppler-glib >= 0.6
 Conflicts:	evince
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -82,7 +83,7 @@ Summary:	Header files for Evince GTK+
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince GTK+
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	gtk+2-devel >= 2:2.22.0
+Requires:	gtk+3-devel >= 3.0.2
 
 %description devel
 Header files for Evince GTK+.
