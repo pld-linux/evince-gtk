@@ -1,3 +1,4 @@
+# NOTE: for more rencent versions see evince.spec, just without nautilus extensions
 #
 # - are schemas (thus GConf) needed?
 #
