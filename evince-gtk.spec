@@ -24,7 +24,7 @@ BuildRequires:	cairo-devel >= 1.10.0
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.71}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	docbook-dtd412-xml
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	ghostscript
 BuildRequires:	glib2-devel >= 2.26.0
 BuildRequires:	gnome-common
